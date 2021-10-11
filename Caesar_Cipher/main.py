@@ -1,5 +1,5 @@
-
-from validation import auto_valid, element_in, number_between, is_all_letters
+from art import logo
+from validation import element_in, auto_valid, is_all_letters
 from prompt import prompt_input
 
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
@@ -7,41 +7,26 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
 
 
 def caesar(direction, starting_text, cipher_key):
-    if direction == "encode":
-        encrypt(starting_text, cipher_key)
-    else:
-        decrypt(starting_text, cipher_key)
-
-
-def encrypt(plain_text, cipher_key):
-    cipher_text = ""
-    for letter in plain_text:
-        position = alphabet.index(letter)
+    out_text = ''
+    if cipher_key >= len(alphabet):
+        cipher_key = cipher_key % len(alphabet)
+    if direction == "decode":
+        cipher_key *= -1
+    for char in starting_text:
+        position = alphabet.index(char)
         if position + cipher_key >= len(alphabet):
             new_position = (position + cipher_key) - len(alphabet)
         else:
             new_position = position + cipher_key
-        cipher_text += alphabet[new_position]
-    print(f"Encoded text: {cipher_text}")
+        out_text += alphabet[new_position]
+    print(f'The text {starting_text} changed to {out_text}')
 
-
-def decrypt(cipher_text, cipher_key):
-    plain_text = ""
-    for letter in cipher_text:
-        position = alphabet.index(letter)
-        new_position = position - cipher_key
-        plain_text += alphabet[new_position]
-    print(f"Decoded text: {plain_text}")
-
-
+print(f'{logo}')
 run = True
 while run:
-    direction = prompt_input(
-        "Type 'encode' to encrypt, type 'decode' to decrypt:\n", element_in, ['encode', 'decode'])
-    text = prompt_input("Type your message:\n",
-                        is_all_letters, alphabet).lower()
-    shift = int(prompt_input("Type the shift number:\n",
-                number_between, 1, len(alphabet)))
+    direction = prompt_input("Type 'encode' to encrypt, type 'decode' to decrypt:\n", element_in, ['encode', 'decode'])
+    text = prompt_input("Type your message:\n", is_all_letters, alphabet).lower()
+    shift = int(prompt_input("Type the shift number:\n", auto_valid))
     caesar(direction, text, shift)
     esc = prompt_input("Exit [y/n]: ", element_in, ['y', 'n'])
     run = False if esc == 'y' else True

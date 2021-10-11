@@ -34,6 +34,15 @@ def element_in(element, arr):
         print("Not a valid option, try again")
         return False
 
+def is_all_letters(str, arr):
+    for letter in str:
+        if letter in arr:
+            continue
+        else:
+            print(f"{letter} is not a letter")
+            return False
+    return True
+
 
 def auto_valid(a):
     return a == a

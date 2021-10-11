@@ -1,5 +1,3 @@
-# hello-world
-My first github project
-Hello!
+# PYTHON PARADISE
 
-I am just starting to get more in depth into programming and having a blast!
+Just a bunch of Python apps because I love to code.

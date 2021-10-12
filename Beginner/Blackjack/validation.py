@@ -33,7 +33,6 @@ def element_in(element, arr):
     if (element) in arr:
         return True
     else:
-        print("Not a valid option, try again")
         return False
 
 def is_all_letters(str, arr):
@@ -72,3 +71,9 @@ def is_number(num):
         print('Only enter numbers')
         return False
     return True
+
+def yes_no(str):
+    if str == 'y' or str == 'n':
+        return True
+    else:
+        return False

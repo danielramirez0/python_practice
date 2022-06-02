@@ -6,7 +6,7 @@ import turtle
 timmy_the_turtle = t()
 timmy_the_turtle.shape("turtle")
 timmy_the_turtle.color("red")
-timmy_the_turtle.speed(10)
+timmy_the_turtle.speed(5)
 
 # color('red', 'yellow')
 # begin_fill()

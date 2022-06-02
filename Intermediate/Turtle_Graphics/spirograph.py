@@ -22,7 +22,7 @@ def draw_spirograph(degree_shift):
     for n in range(int(360 / degree_shift)):
         draw_circle(p.heading() + degree_shift)
 
-draw_spirograph(5)
+draw_spirograph(2)
 
 screen = Screen()
 screen.exitonclick()

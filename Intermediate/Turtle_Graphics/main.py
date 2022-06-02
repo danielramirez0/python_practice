@@ -1,6 +1,6 @@
 #####Turtle Intro######
 import random
-from turtle import Turtle as t, Screen as s, right
+from turtle import Turtle as t, Screen as s
 import turtle
 
 timmy_the_turtle = t()

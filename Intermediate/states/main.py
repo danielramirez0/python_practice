@@ -31,13 +31,8 @@ correct_guesses = []
 while guessing:
     guess = screen.textinput(title=f"{score}/50 States Correct", prompt="Type name of a state").title()
     if guess == "Exit" or guess == "Quit":
-        guessing = False
-        missed_states = []
-        for state in STATE_DATA.state.to_list():
-            if state not in correct_guesses:
-                missed_states.append(state)
-        learn_data = pandas.DataFrame(missed_states)
-        learn_data.to_csv("learn.csv")
+        missed_states = [state for state in STATE_DATA.state.to_list() if state not in correct_guesses]
+        pandas.DataFrame(missed_states).to_csv("learn.csv")
         break
 
     if guess not in correct_guesses:

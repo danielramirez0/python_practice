@@ -6,9 +6,9 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 1
-SHORT_BREAK_MIN = 1
-LONG_BREAK_MIN = 1
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 20
 CHECKMARK = "✔"
 reps = 0
 timer_job = None
@@ -47,7 +47,7 @@ def count_down(count):
     minutes = floor(count / 60)
     canvas.itemconfig(timer_text, text=f"{minutes:02d}:{seconds:02d}")
     if count > 0:
-        timer_job = window.after(10, count_down, count - 1)
+        timer_job = window.after(1000, count_down, count - 1)
     else:
         start_timer()
         checkmark_label.config(text=CHECKMARK * floor(reps / 2))

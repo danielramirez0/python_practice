@@ -1,5 +1,6 @@
 from tkinter import END, Button, Canvas, Entry, Label, PhotoImage, Tk, messagebox
 from generator import generator as create_password
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
     random_pass = create_password()
@@ -12,14 +13,29 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
+
     if len(website_entry.get()) == 0 or len(email_user_entry.get()) ==0 or len(password_entry.get()) == 0:
         messagebox.showwarning(title="Whoops!", message="Make sure all fields are filled out")
         return
-    is_ok = messagebox.askokcancel(title=website_entry.get(), message=f"Confirm\nEmail:{email_user_entry.get()}\nPassword:{password_entry.get()}")
 
-    if is_ok:
-        with open("data.txt", "a") as data:
-            data.write(f"{website_entry.get()} | {email_user_entry.get()} | {password_entry.get()}\n")
+    new_data = {
+        website_entry.get(): {
+            "email": email_user_entry.get(),
+            "password": password_entry.get()
+        }
+    }
+    try:
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+            data.update(new_data)
+    except FileNotFoundError:
+        with open("data.json", "w") as data_file:
+            json.dump(new_data, data_file, indent=4)
+    else:
+        with open("data.json", "w") as data_file:
+            json.dump(data, data_file, indent=4)
+            # data.update(f"{website_entry.get()} | {email_user_entry.get()} | {password_entry.get()}\n")
+    finally:
         website_entry.delete(0,END)
         password_entry.delete(0,END)
         website_entry.focus()

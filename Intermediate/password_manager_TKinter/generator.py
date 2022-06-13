@@ -17,4 +17,4 @@ def generator():
     return "".join(password_list)
 
 
-print(generator())
+# print(generator())

@@ -39,7 +39,20 @@ def save_password():
         website_entry.delete(0,END)
         password_entry.delete(0,END)
         website_entry.focus()
-
+# ---------------------------- SEARCH PASS ------------------------------- #
+def find_password():
+    try:
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showwarning(message="There is no data file. Save a password to create one")
+    else:
+        try:
+            record = data[website_entry.get()]
+        except KeyError:
+            messagebox.showerror(message=f"There is no entry for site: {website_entry.get()}")
+        else:
+            messagebox.showinfo(message=f"Email: {record['email']}\nPassword: {record['password']}")        
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -51,15 +64,15 @@ LOCK_IMAGE = PhotoImage(file="logo.png")
 canvas.create_image(100, 100, image=LOCK_IMAGE)
 canvas.grid(column=1, row=0)
 
-#Labels
 website_label = Label(text="Website:").grid(column=0, row=1)
 email_user_label = Label(text="Email/Username:").grid(column=0, row=2)
 password_label = Label(text="Password:").grid(column=0, row=3)
 
-#Entries
-website_entry = Entry(width=35)
-website_entry.grid(column=1, row=1, columnspan=2)
+website_entry = Entry(width=21)
+website_entry.grid(column=1, row=1)
 website_entry.focus()
+search_button = Button(text="Search", width=10, command=find_password).grid(column=2, row=1)
+
 email_user_entry = Entry(width=35)
 email_user_entry.grid(column=1, row=2, columnspan=2)
 email_user_entry.insert(0, "myemail@mail.com")

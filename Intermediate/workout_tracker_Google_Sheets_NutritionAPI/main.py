@@ -1,6 +1,6 @@
 from datetime import datetime
 import requests
-from env.config import GENDER, HEADERS, AGE, HEIGHT, WEIGHT, EXERCISE_ENDPOINT, SHEETS_ENDPOINT
+from env.config import GENDER, HEADERS, AGE, HEIGHT, SHEETS_AUTH_HEADER, WEIGHT, EXERCISE_ENDPOINT, SHEETS_ENDPOINT
 
 
 
@@ -32,7 +32,7 @@ for exercise in exercises:
             "calories": exercise["nf_calories"]
         }
     }
-    r = requests.post(url=SHEETS_ENDPOINT, json=body)
+    r = requests.post(url=SHEETS_ENDPOINT, json=body, headers=SHEETS_AUTH_HEADER)
     r.raise_for_status()
     print(r.text)
 

@@ -9,18 +9,24 @@ class DataManager:
         self.auth_header: dict = auth_header
         self.data = {}
 
-    def get_sheet_data(self) -> dict:
-        res = req.get(url=self.base_url, headers=self.auth_header)
+    def get_cities(self) -> dict:
+        res = req.get(url=f"{self.base_url}/cities", headers=self.auth_header)
         res.raise_for_status()
         self.data = res.json()["cities"]
         return self.data
 
-    def update_sheet_row_field(self, field, row):
+    def update_city_sheet_row_field(self, field, row):
         change = {
             "city": {
             field: row[field]
             }
         }
         res = req.put(
-            url=f"{self.base_url}/{row['id']}", headers=self.auth_header, json=change)
+            url=f"{self.base_url}/cities/{row['id']}", headers=self.auth_header, json=change)
         res.raise_for_status()
+
+    def get_customer_emails(self):
+        response = req.get(f"{self.base_url}/users")
+        data = response.json()
+        self.customer_data = data["users"]
+        return self.customer_data

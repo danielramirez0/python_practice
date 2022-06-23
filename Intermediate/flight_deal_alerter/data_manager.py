@@ -15,14 +15,12 @@ class DataManager:
         self.data = res.json()["cities"]
         return self.data
 
-    def update_sheet_data(self, new_data):
-        for item in new_data:
-            change = {
-                "city": {
-                    "iataCode": item["iataCode"]
-                }
+    def update_sheet_row_field(self, field, row):
+        change = {
+            "city": {
+            field: row[field]
             }
-            res = req.put(
-                url=f"{self.base_url}/{item['id']}", headers=self.auth_header, json=change)
+        }
+        res = req.put(
+            url=f"{self.base_url}/{row['id']}", headers=self.auth_header, json=change)
         res.raise_for_status()
-        return self.get_sheet_data()

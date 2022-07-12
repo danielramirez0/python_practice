@@ -1,6 +1,3 @@
-from inspect import getfullargspec
-
-
 class MergeSort():
     def __init__(self) -> None:
         pass
@@ -45,7 +42,7 @@ class MergeSort():
         self.merge(arr, start, midpoint, end)
 
 
-    def run(self, arr):
+    def sort(self, arr):
         self.merge_sort(arr, 0, len(arr) - 1)
 
 
